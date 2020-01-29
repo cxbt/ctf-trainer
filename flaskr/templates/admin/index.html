@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% block title %}Big Brother Page{% endblock %}
+{% endblock %}
+
+{% block content %}
+<canvas id="myChart" class="w-100 p-2 mb-3"></canvas>
+<script>
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var myChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: ['Something', 'That', 'Looks', 'Like', 'Professional', 'Web Designer'],
+			datasets: [{
+				label: '# of Average Coolness',
+				data: [12, 19, 3, 5, 2, 3],
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(153, 102, 255, 0.2)',
+					'rgba(255, 159, 64, 0.2)'
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(153, 102, 255, 1)',
+					'rgba(255, 159, 64, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			}
+		}
+	});
+</script>
+<div class="row">
+	<div class="col-sm-6">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Member Manipulation Panel</h5>
+				<p class="card-text">Let's find out who got into our trap! 🔑</p>
+				<a href="#" class="btn btn-primary">Member page</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Challenge Control Machine</h5>
+				<p class="card-text">Wave our flag to rule the world, ha ha ha. 🕹</p>
+				<a href="#" class="btn btn-primary">Challenge page</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

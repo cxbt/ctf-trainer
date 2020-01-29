@@ -11,7 +11,10 @@
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
 
     <title>Welcome</title>
 </head>
@@ -39,7 +42,11 @@
             <ul class="navbar-nav ml-md-auto">
                 {% if g.user %}
                 <li class="nav-item">
-                    <span class="navbar-text mr-3">Hello, {{ g.user['username'] }}</span>
+                    {% if g.user['isAdmin'] == True %}
+                    <a class="nav-link mr-3" href="{{ url_for('admin.index') }}">Welcome Mr.{{ g.user['username'] }}</a>
+                    {% else %}
+                    <span class="navbar-text mr-3">Hello {{ g.user['username'] }}.</span>
+                    {% endif %}
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
