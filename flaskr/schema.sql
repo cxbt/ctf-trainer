@@ -48,4 +48,15 @@ VALUES
     0,
     'pbkdf2:sha256:150000$G8CzwElb$c959685cbbce97301933cb7fca20778aa43a01aef502eecf1c2476eb2d76b8af',
     1
-  )
+  );
+INSERT INTO challenge (title, body, thumbsup, flag, score)
+VALUES
+  (
+    'In code',
+    'How many encoding method do you know? Can you decode below text?
+
+9M\_h7=0;6F^JW8DKK5t0kYWLAR@-62d^cB1itT^0lC>c0LR^F',
+    0,
+    'pbkdf2:sha256:150000$iJTAPf0N$895bc99c33986aa4629eefd477e9f9f8e63d8ef62841224973441e549003a1e5',
+    10
+  );
