@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
     <title>Welcome</title>
 </head>
 
@@ -35,6 +38,9 @@
             <hr class="d-sm-flex d-md-flex d-lg-none">
             <ul class="navbar-nav ml-md-auto">
                 {% if g.user %}
+                <li class="nav-item">
+                    <span class="navbar-text mr-3">Hello, {{ g.user['username'] }}</span>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
                 </li>
