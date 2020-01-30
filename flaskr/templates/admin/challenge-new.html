@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% block title %}New Challenge{% endblock %}
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+    <div class="form-group">
+        <label for="InputTitle">Title</label>
+        <input type="text" class="form-control" id="InputTitle" name="title" required>
+    </div>
+    <div class="form-group">
+        <label for="InputBody">Body</label>
+        <textarea class="form-control" id="InputBody" name="body" rows="10"></textarea>
+    </div>
+    <div class="form-group row">
+        <div class="col">
+            <input type="text" class="form-control" id="InputFlag" name="flag" placeholder="Enter flag here" aria-describedby="helpFlag" required>
+            <small id="helpFlag" class="form-text text-muted">Please write your flag somewhere else,  we store it in hash.</small>
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" id="InputScore" name="score" placeholder="Enter score here" aria-describedby="helpScore" required>
+            <small id="helpScore" class="form-text text-muted">Score should be numeric.</small>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Create Challenge!</button>
+</form>
+{% endblock %}
