@@ -9,7 +9,7 @@
     <div class="form-group">
         <label for="InputTitle">Title</label>
         <input type="text" class="form-control" id="InputTitle" name="title"
-            value="{{ request.form['title'] or challenge['title'] }}'" aria-describedby="helpTitle" required>
+            value="{{ request.form['title'] or challenge['title'] }}" aria-describedby="helpTitle" required>
         <small id="helpTitle" class="form-text text-muted">You created this challenge on
             {{ challenge['created'] }}</small>
     </div>

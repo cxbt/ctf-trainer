@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% block title %}Challenges{% endblock %}
+{% endblock %}
+
+{% block content %}
+<table class="table table-sm table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">title</th>
+            <th scope="col">score</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for challenge in challenges %}
+        <tr>
+            <th class="align-middle">{{ challenge['id'] }}</th>
+            <td class="align-middle">{{ challenge['title'] }}</td>
+            <td class="align-middle">{{ challenge['score'] }}</td>
+            <td class="align-middle">
+                <div class="row px-3">
+                    <a href="/admin/challenge/edit/{{ challenge['id'] }}" class="btn btn-primary btn-sm mx-1">Edit</a>
+                    <a href="/admin/challenge/delete/{{ challenge['id'] }}" class="btn btn-danger btn-sm mx-1">Delete</a>
+                </div>
+            </td>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -19,6 +19,19 @@ def index():
 
 @login_required
 @admin_required
+@bp.route('/challenge', methods=('GET',))
+def list_challenge():
+    db = get_db()
+    challenges = db.execute(
+        'SELECT id, title, body, created, thumbsup, score'
+        ' FROM challenge'
+        ' ORDER BY created ASC'
+    ).fetchall()
+    return render_template('admin/challenge-list.html', challenges=challenges)
+
+
+@login_required
+@admin_required
 @bp.route('/challenge/create', methods=('GET', 'POST'))
 def create_challenge():
     if request.method == 'POST':
@@ -48,7 +61,8 @@ def create_challenge():
                 (title, body, 0, generate_password_hash(flag), score)
             )
             db.commit()
-            return redirect(url_for('admin.index'))
+            flash(f'Successfully created challenge "{title}"!"')
+            return redirect(url_for('admin.list_challenge'))
 
     return render_template('admin/challenge-new.html')
 
@@ -100,7 +114,8 @@ def edit_challenge(id):
                 (title, body, generate_password_hash(flag), score, id)
             )
             db.commit()
-            return redirect(url_for('admin.index'))
+            flash(f'Successfully edited challenge "{title}"!')
+            return redirect(url_for('admin.list_challenge'))
 
     return render_template('admin/challenge-edit.html', challenge=challenge)
 
@@ -131,4 +146,5 @@ def delete_challenge(id):
         (id,)
     )
     db.commit()
-    return redirect(url_for('admin.index'))
+    flash('Successfully deleted!')
+    return redirect(url_for('admin.list_challenge'))
