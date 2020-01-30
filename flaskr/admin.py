@@ -23,11 +23,13 @@ def create_challenge():
         title = request.form['title']
         body = request.form['body']
         flag = request.form['flag']
-        score = request.score['score']
+        score = request.form['score']
         error = None
 
         if not title:
             error = 'Title is required.'
+        elif not flag:
+            error = 'Flag is required.'
 
         try:
             int(score)
