@@ -22,8 +22,8 @@
             <td class="align-middle">{{ challenge['score'] }}</td>
             <td class="align-middle">
                 <div class="row px-3">
-                    <a href="/admin/challenge/edit/{{ challenge['id'] }}" class="btn btn-primary btn-sm mx-1">Edit</a>
-                    <a href="/admin/challenge/delete/{{ challenge['id'] }}" class="btn btn-danger btn-sm mx-1">Delete</a>
+                    <a href="{{ url_for('admin.edit_challenge', id=challenge['id']) }}" class="btn btn-primary btn-sm mx-1">Edit</a>
+                    <a href="{{ url_for('admin.delete_challenge', id=challenge['id']) }}" class="btn btn-danger btn-sm mx-1">Delete</a>
                 </div>
             </td>
             </td>
