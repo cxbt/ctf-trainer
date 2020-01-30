@@ -1,6 +1,8 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
+from werkzeug.security import generate_password_hash
+
 
 from flaskr.auth import login_required, admin_required
 from flaskr.db import get_db
@@ -49,3 +51,84 @@ def create_challenge():
             return redirect(url_for('admin.index'))
 
     return render_template('admin/challenge-new.html')
+
+
+@login_required
+@admin_required
+@bp.route('/challenge/edit/<int:id>', methods=('GET', 'POST'))
+def edit_challenge(id):
+    db = get_db()
+    challenge = db.execute(
+        'SELECT id, title, body, created, thumbsup, score'
+        ' FROM challenge'
+        ' WHERE id = ?',
+        (id,)
+    ).fetchone()
+    error = None
+
+    if not challenge:
+        error = f"There is no challenge id {id}"
+
+    if error is not None:
+        flash(error)
+
+    if request.method == 'POST':
+        title = request.form['title']
+        body = request.form['body']
+        flag = request.form['flag']
+        score = request.form['score']
+        error = None
+
+        if not title:
+            error = 'Title is required.'
+        elif not flag:
+            error = 'Flag is required.'
+
+        try:
+            int(score)
+        except ValueError:
+            error = 'Score should be numeric.'
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                'UPDATE challenge'
+                ' SET title=?, body=?, flag=?, score=?'
+                ' WHERE id = ?',
+                (title, body, generate_password_hash(flag), score, id)
+            )
+            db.commit()
+            return redirect(url_for('admin.index'))
+
+    return render_template('admin/challenge-edit.html', challenge=challenge)
+
+
+@login_required
+@admin_required
+@bp.route('/challenge/delete/<int:id>', methods=('POST',))
+def delete_challenge(id):
+    db = get_db()
+    challenge = db.execute(
+        'SELECT id, title, body, created, thumbsup, score'
+        ' FROM challenge'
+        ' WHERE id = ?',
+        (id,)
+    ).fetchone()
+    error = None
+
+    if not challenge:
+        error = f"There is no challenge id {id}"
+
+    if error is not None:
+        flash(error)
+
+    db.execute(
+        'DELETE'
+        ' FROM challenge'
+        ' WHERE id = ?',
+        (id,)
+    )
+    db.commit()
+    return redirect(url_for('admin.index'))
