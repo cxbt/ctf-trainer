@@ -22,8 +22,8 @@ def index():
     return render_template('chall/index.html', challenges=challenges)
 
 
-@login_required
 @bp.route('/challenge/<int:id>', methods=('POST',))
+@login_required
 def authenticate(id):
     db = get_db()
     challenge = db.execute(
@@ -46,7 +46,7 @@ def authenticate(id):
     if not check_password_hash(challenge['flag'], flag):
         flash(f'NOPE')
         return redirect(url_for('challenge.index'))
-    
+
     db.execute(
         'UPDATE user'
         ' SET score=?'

@@ -10,16 +10,16 @@ from flaskr.db import get_db
 bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 
+@bp.route('/', methods=('GET',))
 @login_required
 @admin_required
-@bp.route('/', methods=('GET',))
 def index():
     return render_template('admin/index.html')
 
 
+@bp.route('/challenge', methods=('GET',))
 @login_required
 @admin_required
-@bp.route('/challenge', methods=('GET',))
 def list_challenge():
     db = get_db()
     challenges = db.execute(
@@ -30,9 +30,9 @@ def list_challenge():
     return render_template('admin/challenge-list.html', challenges=challenges)
 
 
+@bp.route('/challenge/create', methods=('GET', 'POST'))
 @login_required
 @admin_required
-@bp.route('/challenge/create', methods=('GET', 'POST'))
 def create_challenge():
     if request.method == 'POST':
         title = request.form['title']
@@ -67,9 +67,9 @@ def create_challenge():
     return render_template('admin/challenge-new.html')
 
 
+@bp.route('/challenge/edit/<int:id>', methods=('GET', 'POST'))
 @login_required
 @admin_required
-@bp.route('/challenge/edit/<int:id>', methods=('GET', 'POST'))
 def edit_challenge(id):
     db = get_db()
     challenge = db.execute(
@@ -120,9 +120,9 @@ def edit_challenge(id):
     return render_template('admin/challenge-edit.html', challenge=challenge)
 
 
+@bp.route('/challenge/delete/<int:id>', methods=('POST',))
 @login_required
 @admin_required
-@bp.route('/challenge/delete/<int:id>', methods=('POST',))
 def delete_challenge(id):
     db = get_db()
     challenge = db.execute(
