@@ -90,6 +90,7 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
+            flash('You need to login.')
             return redirect(url_for('auth.login'))
 
         return view(**kwargs)
@@ -103,7 +104,10 @@ def admin_required(view):
         if g.user is not None:
             if g.user['isAdmin'] == True:
                 return view(**kwargs)
-
-        return redirect(url_for('challenge.index'))
-
+            else:
+                flash('You are not authorized to access this page.')
+                return redirect(url_for('challenge.index'))
+        else:
+            flash('You need to login.')
+            return redirect(url_for('auth.login'))
     return wrapped_view
