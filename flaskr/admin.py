@@ -11,14 +11,12 @@ bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 
 @bp.route('/', methods=('GET',))
-@login_required
 @admin_required
 def index():
     return render_template('admin/index.html')
 
 
 @bp.route('/challenge', methods=('GET',))
-@login_required
 @admin_required
 def list_challenge():
     db = get_db()
@@ -31,7 +29,6 @@ def list_challenge():
 
 
 @bp.route('/challenge/create', methods=('GET', 'POST'))
-@login_required
 @admin_required
 def create_challenge():
     if request.method == 'POST':
@@ -68,7 +65,6 @@ def create_challenge():
 
 
 @bp.route('/challenge/edit/<int:id>', methods=('GET', 'POST'))
-@login_required
 @admin_required
 def edit_challenge(id):
     db = get_db()
@@ -121,7 +117,6 @@ def edit_challenge(id):
 
 
 @bp.route('/challenge/delete/<int:id>', methods=('POST',))
-@login_required
 @admin_required
 def delete_challenge(id):
     db = get_db()
