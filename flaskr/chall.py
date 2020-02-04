@@ -14,14 +14,22 @@ bp = Blueprint('challenge', __name__, url_prefix='/challenge')
 @bp.route('/')
 def index():
     db = get_db()
-    challenges = db.execute(
-        'SELECT c.id, c.title, c.body, c.thumbsup, c.score, r.timestamp'
-        ' FROM challenge AS c'
-        ' LEFT JOIN records AS r ON (c.id = r.challengeid)'
-        ' AND (r.userid = ?)'
-        ' ORDER BY created DESC',
-        (g.user['id'],)
-    ).fetchall()
+    if g.user:
+        challenges = db.execute(
+            'SELECT c.id, c.title, c.body, c.thumbsup, c.score, r.timestamp'
+            ' FROM challenge AS c'
+            ' LEFT JOIN records AS r ON (c.id = r.challengeid)'
+            ' AND (r.userid = ?)'
+            ' ORDER BY created DESC',
+            (g.user['id'],)
+        ).fetchall()
+    else:
+        challenges = db.execute(
+            'SELECT c.id, c.title, c.body, c.thumbsup, c.score'
+            ' FROM challenge AS c'
+            ' ORDER BY created DESC'
+        ).fetchall()
+
     return render_template('chall/index.html', challenges=challenges)
 
 

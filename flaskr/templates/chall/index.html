@@ -8,7 +8,7 @@
 {% block content %}
 <div class="accordion" id="accordionExample"></div>
 {% for challenge in challenges %}
-<div class="card">
+<div class="card mb-3">
     {% if challenge['timestamp'] %}
     <div class="card-header solved" id="heading{{ loop.index }}">
         {% else %}
@@ -23,33 +23,43 @@
                 </button>
             </h5>
             <h5 class="mb-0 d-inline">
-                <button class="btn btn-dark" type="button" onclick="like()">
+                <button class="btn btn-primary" type="button" onclick="like()">
                     ❤ {{ challenge['thumbsup'] }}
                 </button>
             </h5>
         </div>
-        <div id="collapse{{ loop.index }}" class="collapse{% if loop.index == 1 %} show{% endif %}"
+        <div id="collapse{{ loop.index }}" class="collapse{% if challenge['timestamp'] is none or g.user is none %} show{% endif %}"
             aria-labelledby="heading{{ loop.index }}" data-parent="#accordionExample">
             <div class="card-body">
-                <pre>{{ challenge['body'] }}</pre>
+                <pre class="px-3 mt-2 mb-4">{{ challenge['body'] }}</pre>
                 <hr>
                 <form method="POST" class="form-inline"
                     action="{{ url_for('challenge.authenticate', id=challenge['id']) }}">
                     {% if challenge['timestamp'] %}
-                        <div class="form-group col-lg-10 mb-2">
-                            <input type="hidden" name="challno" value="{{ challenge.id }}">
-                            <input type="text" class="form-control w-100" placeholder="You already solve this challenge :D" name="flag" disabled>
-                        </div>
-                        <div class="form-group col-lg-2 mb-2">
-                            <button type="submit" class="btn btn-primary w-100" disabled>Submit</button>
-                        </div>
-                    {% else %}
+                    <div class="form-group col-lg-10 mb-2">
+                        <input type="hidden" name="challno" value="{{ challenge.id }}">
+                        <input type="text" class="form-control w-100" placeholder="You already solve this challenge :D"
+                            name="flag" disabled>
+                    </div>
+                    <div class="form-group col-lg-2 mb-2">
+                        <button type="submit" class="btn btn-primary w-100" disabled>Submit</button>
+                    </div>
+                    {% elif g.user %}
                     <div class="form-group col-lg-10 mb-2">
                         <input type="hidden" name="challno" value="{{ challenge.id }}">
                         <input type="text" class="form-control w-100" placeholder="LOWTE{...}" name="flag">
                     </div>
                     <div class="form-group col-lg-2 mb-2">
                         <button type="submit" class="btn btn-primary w-100">Submit</button>
+                    </div>
+                    {% else %}
+                    <div class="form-group col-lg-10 mb-2">
+                        <input type="hidden" name="challno" value="{{ challenge.id }}">
+                        <input type="text" class="form-control w-100" placeholder="Login to play :P" name="flag"
+                            disabled>
+                    </div>
+                    <div class="form-group col-lg-2 mb-2">
+                        <button type="submit" class="btn btn-primary w-100" disabled>Submit</button>
                     </div>
                     {% endif %}
                 </form>
