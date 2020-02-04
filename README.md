@@ -6,11 +6,15 @@ Hacking training website
 
 ```text
 /
+├── challenge/
+│   └── <int:id>
+├── rank
+├── admin/
+│   └── challenge
+│       ├── create
+│       ├── edit/<int:id>
+│       └── delete/<int:id>
 ├── register
 ├── login
-├── logout
-├── create
-└── <int:id>/
-    ├── update
-    └── delete
+└── logout
 ```
