@@ -46,12 +46,12 @@ VALUES
     'jblee',
     'pbkdf2:sha256:150000$4DcoEeaV$581b8a6fd8cb4ac473d74be847f48ab2d0438f9fec4f727241f10c4a3dce555c',
     0,
-    'jblee@teruten.com'
+    'jblee@teruten.com',
     0
   ),
   (
     'blackkey',
-    'pbkdf2:sha256:150000$8klHkIjE$49dba58a381a5b21dca846314377e64e988b3137418382a1552219b9dc49ef35'
+    'pbkdf2:sha256:150000$8klHkIjE$49dba58a381a5b21dca846314377e64e988b3137418382a1552219b9dc49ef35',
     0,
     'suninatas@gmail.com',
     0
