@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 
 
 def create_app(test_config=None):
@@ -31,9 +31,14 @@ def create_app(test_config=None):
 
     from . import chall
     app.register_blueprint(chall.bp)
-    app.add_url_rule('/', endpoint='index')
 
     from . import admin
     app.register_blueprint(admin.bp)
+
+    app.add_url_rule('/', endpoint='index')
+
+    @app.route('/')
+    def index():
+        return render_template('index.html')
 
     return app
