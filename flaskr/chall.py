@@ -18,7 +18,9 @@ def index():
         'SELECT c.id, c.title, c.body, c.thumbsup, c.score, r.timestamp'
         ' FROM challenge AS c'
         ' LEFT JOIN records AS r ON (c.id = r.challengeid)'
-        ' ORDER BY created DESC'
+        ' AND (r.userid = ?)'
+        ' ORDER BY created DESC',
+        (g.user['id'],)
     ).fetchall()
     return render_template('chall/index.html', challenges=challenges)
 
