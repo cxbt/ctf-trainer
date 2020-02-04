@@ -35,6 +35,9 @@ def create_app(test_config=None):
     from . import admin
     app.register_blueprint(admin.bp)
 
+    from . import rank
+    app.register_blueprint(rank.bp)
+
     app.add_url_rule('/', endpoint='index')
 
     @app.route('/')
