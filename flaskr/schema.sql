@@ -30,35 +30,35 @@ INSERT INTO user (username, password, isAdmin, email, score)
 VALUES
   (
     'test',
-    'pbkdf2:sha256:150000$RFWE75Ir$76366beffd12322efb7eb52b913b671c969abfdfb91607d405129728b05e4838',
+    'pbkdf2:sha256:150000$RFWE75Ir$76366beffd12322efb7eb52b913b671c969abfdfb91607d405129728b05e4838', /* test */
     0,
     'test@test.com',
     0
   ),
   (
     'lowte',
-    'pbkdf2:sha256:150000$td2GOrSN$a17ce2468a922a26d07dddd7590d9a00dc33bb6a004035a74198c08623a9a576',
+    'pbkdf2:sha256:150000$td2GOrSN$a17ce2468a922a26d07dddd7590d9a00dc33bb6a004035a74198c08623a9a576', /* lowte */
     1,
     'lowte@gmail.com',
     0
   ),
   (
     'jblee',
-    'pbkdf2:sha256:150000$4DcoEeaV$581b8a6fd8cb4ac473d74be847f48ab2d0438f9fec4f727241f10c4a3dce555c',
+    'pbkdf2:sha256:150000$4DcoEeaV$581b8a6fd8cb4ac473d74be847f48ab2d0438f9fec4f727241f10c4a3dce555c', /* jblee */
     0,
-    'jblee@teruten.com',
+    'jblee@jbrulz.com',
     0
   ),
   (
-    'blackkey',
-    'pbkdf2:sha256:150000$8klHkIjE$49dba58a381a5b21dca846314377e64e988b3137418382a1552219b9dc49ef35',
+    'archmage',
+    'pbkdf2:sha256:150000$Wt2EPmfQ$2db694467e808edea468f80621f7328dfc3a9683ac62d949efe83a7aedac28da', /* archmage */
     0,
-    'suninatas@gmail.com',
+    'archmage@firepoison.com',
     0
   ),
   (
     'meme',
-    'pbkdf2:sha256:150000$4A00Ap0a$cc380af3e34430d099cf13a25f059d389da62d022902d8307ad3faf686d2cf55',
+    'pbkdf2:sha256:150000$4A00Ap0a$cc380af3e34430d099cf13a25f059d389da62d022902d8307ad3faf686d2cf55', /* meme */
     0,
     'meme@meme.com',
     0
