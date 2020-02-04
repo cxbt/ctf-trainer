@@ -1,3 +1,12 @@
+{% set navbar = [
+    ('/', 'index', 'Home'),
+    ('/challenge', 'challenge', 'Challenge'),
+    ('/rank', 'rank', 'Rank'),
+    ('#', 'wiki', 'Wiki')
+] -%}
+
+{% set active_page = active_page|default('index') %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +31,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ url_for('challenge.index') }}">
+        <a class="navbar-brand" href="{{ url_for('index') }}">
             <img src="{{ url_for('static', filename='img/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
             TRAINER
         </a>
@@ -32,15 +41,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
+                {% for href, id, caption in navbar %}
+                {% if id == active_page %}
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
+                {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Board</a>
+                {% endif %}
+                    <a class="nav-link" href="{{ href }}">{{ caption }}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Wiki</a>
-                </li>
+                {% endfor %}
             </ul>
             <hr class="d-sm-flex d-md-flex d-lg-none">
             <ul class="navbar-nav ml-md-auto">
