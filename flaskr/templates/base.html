@@ -49,7 +49,7 @@
                     {% if g.user['isAdmin'] == True %}
                     <a class="nav-link mr-3" href="{{ url_for('admin.index') }}">Welcome Mr.{{ g.user['username'] }}</a>
                     {% else %}
-                    <span class="navbar-text mr-3">Hello {{ g.user['username'] }}.</span>
+                    <span class="navbar-text mr-3">Hello {{ g.user['username'] }} ({{ g.user['score'] }}pt)</span>
                     {% endif %}
                 </li>
                 <li class="nav-item">
