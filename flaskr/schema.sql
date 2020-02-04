@@ -32,7 +32,7 @@ VALUES
     'test',
     'pbkdf2:sha256:150000$RFWE75Ir$76366beffd12322efb7eb52b913b671c969abfdfb91607d405129728b05e4838',
     0,
-    'maumau@maumau.com',
+    'test@test.com',
     0
   ),
   (
@@ -41,12 +41,35 @@ VALUES
     1,
     'lowte@gmail.com',
     0
+  ),
+  (
+    'jblee',
+    'pbkdf2:sha256:150000$4DcoEeaV$581b8a6fd8cb4ac473d74be847f48ab2d0438f9fec4f727241f10c4a3dce555c',
+    0,
+    'jblee@teruten.com'
+    0
+  ),
+  (
+    'blackkey',
+    'pbkdf2:sha256:150000$8klHkIjE$49dba58a381a5b21dca846314377e64e988b3137418382a1552219b9dc49ef35'
+    0,
+    'suninatas@gmail.com',
+    0
+  ),
+  (
+    'meme',
+    'pbkdf2:sha256:150000$4A00Ap0a$cc380af3e34430d099cf13a25f059d389da62d022902d8307ad3faf686d2cf55',
+    0,
+    'meme@meme.com',
+    0
   );
 INSERT INTO challenge (title, body, thumbsup, flag, score)
 VALUES
   (
     'Mic Check',
-    'Long time no see little fella, are you ready for a new round? LOWTE{m1c_ch3cK}',
+    'Long time no see little fella, are you ready for a new round? 
+    
+LOWTE{m1c_ch3cK}',
     0,
     'pbkdf2:sha256:150000$G8CzwElb$c959685cbbce97301933cb7fca20778aa43a01aef502eecf1c2476eb2d76b8af',
     1
