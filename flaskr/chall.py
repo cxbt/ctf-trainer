@@ -8,7 +8,7 @@ from flaskr.auth import login_required, admin_required
 from flaskr.db import get_db
 
 
-bp = Blueprint('challenge', __name__)
+bp = Blueprint('challenge', __name__, url_prefix='/challenge')
 
 
 @bp.route('/')
@@ -23,7 +23,7 @@ def index():
     return render_template('chall/index.html', challenges=challenges)
 
 
-@bp.route('/challenge/<int:id>', methods=('POST',))
+@bp.route('/<int:id>', methods=('POST',))
 @login_required
 def authenticate(id):
     db = get_db()
