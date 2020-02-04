@@ -8,25 +8,32 @@
 <div class="accordion" id="accordionExample"></div>
 {% for challenge in challenges %}
 <div class="card">
+    {% if challenge['timestamp'] %}
+    <div class="card-header solved" id="heading{{ loop.index }}">
+    {% else %}
     <div class="card-header" id="heading{{ loop.index }}">
+        {% endif %}
         <h5 class="mb-0 d-inline">
-            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ loop.index }}"
-                aria-expanded="true" aria-controls="collapseOne">
-                {{ challenge['title'] }} ({{ challenge['score']}}pt)
+            <button class="btn btn-link" type="button" data-toggle="collapse"
+                data-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapseOne">
+                <span style="color: black">
+                    {{ challenge['title'] }} ({{ challenge['score']}}pt)
+                </span>
             </button>
         </h5>
         <h5 class="mb-0 d-inline">
-            <button class="btn btn-light" type="button" onclick="like()">
+            <button class="btn btn-dark" type="button" onclick="like()">
                 ❤ {{ challenge['thumbsup'] }}
             </button>
         </h5>
     </div>
-    <div id="collapse{{ loop.index }}" class="collapse{% if loop.index == 1 %} show{% endif %}" aria-labelledby="heading{{ loop.index }}"
-        data-parent="#accordionExample">
+    <div id="collapse{{ loop.index }}" class="collapse{% if loop.index == 1 %} show{% endif %}"
+        aria-labelledby="heading{{ loop.index }}" data-parent="#accordionExample">
         <div class="card-body">
             <pre>{{ challenge['body'] }}</pre>
             <hr>
-            <form method="POST" class="form-inline" action="{{ url_for('challenge.authenticate', id=challenge['id']) }}">
+            <form method="POST" class="form-inline"
+                action="{{ url_for('challenge.authenticate', id=challenge['id']) }}">
                 <div class="form-group col-lg-10 mb-2">
                     <input type="hidden" name="challno" value="{{ challenge.id }}">
                     <input type="text" class="form-control w-100" placeholder="LOWTE{...}" name="flag">
@@ -37,7 +44,7 @@
             </form>
         </div>
     </div>
-</div>
-{% endfor %}
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

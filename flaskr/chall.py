@@ -15,8 +15,9 @@ bp = Blueprint('challenge', __name__)
 def index():
     db = get_db()
     challenges = db.execute(
-        'SELECT id, title, body, created, thumbsup, score'
-        ' FROM challenge'
+        'SELECT c.id, c.title, c.body, c.thumbsup, c.score, r.timestamp'
+        ' FROM challenge AS c'
+        ' LEFT JOIN records AS r ON (c.id = r.challengeid)'
         ' ORDER BY created DESC'
     ).fetchall()
     return render_template('chall/index.html', challenges=challenges)
@@ -44,15 +45,19 @@ def authenticate(id):
     flag = request.form['flag']
 
     if not check_password_hash(challenge['flag'], flag):
-        flash(f'NOPE')
+        flash(f'You are wrong :(')
         return redirect(url_for('challenge.index'))
 
+    db.execute(
+        'INSERT INTO records (userid, challengeid) VALUES (?, ?)',
+        (g.user['id'], id)
+    )
     db.execute(
         'UPDATE user'
         ' SET score=?'
         ' WHERE id = ?',
-        (int(challenge['score']), g.user['id'])
+        (int(g.user['score']) + int(challenge['score']), g.user['id'])
     )
     db.commit()
-    flash(f'CORRECT!')
+    flash(f'Whohoo, Correct!')
     return redirect(url_for('challenge.index'))

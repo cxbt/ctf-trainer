@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS challenge;
-DROP TABLE IF EXISTS record;
+DROP TABLE IF EXISTS records;
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   isAdmin BOOL NOT NULL,
@@ -17,6 +17,14 @@ CREATE TABLE challenge (
   thumbsup INTEGER NOT NULL,
   flag TEXT NOT NULL,
   score INTEGER NOT NULL
+);
+CREATE TABLE records (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  userid INTEGER NOT NULL,
+  challengeid INTEGER NOT NULL,
+  FOREIGN KEY(userid) REFERENCES user(id),
+  FOREIGN KEY(challengeid) REFERENCES challenge(id)
 );
 INSERT INTO user (username, password, isAdmin, email, score)
 VALUES
