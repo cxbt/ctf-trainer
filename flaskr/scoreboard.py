@@ -5,7 +5,7 @@ from flask import (
 from flaskr.db import get_db
 
 
-bp = Blueprint('rank', __name__, url_prefix='/rank')
+bp = Blueprint('scoreboard', __name__, url_prefix='/scoreboard')
 
 
 @bp.route('/')
@@ -19,4 +19,4 @@ def index():
         ' ORDER BY u.score DESC, r.timestamp ASC'
     ).fetchall()
 
-    return render_template('rank/index.html', records=record)
+    return render_template('scoreboard/index.html', records=record)

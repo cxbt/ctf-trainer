@@ -35,8 +35,8 @@ def create_app(test_config=None):
     from . import admin
     app.register_blueprint(admin.bp)
 
-    from . import rank
-    app.register_blueprint(rank.bp)
+    from . import scoreboard
+    app.register_blueprint(scoreboard.bp)
 
     app.add_url_rule('/', endpoint='index')
 
