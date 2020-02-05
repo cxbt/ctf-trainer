@@ -2,7 +2,7 @@
 {% set active_page = "challenge" %}
 
 {% block header %}
-{% block title %}Challenges{% endblock %}
+{% block title %}Challenge{% endblock %}
 {% endblock %}
 
 {% block content %}
@@ -28,7 +28,8 @@
                 </button>
             </h5>
         </div>
-        <div id="collapse{{ loop.index }}" class="collapse{% if challenge['timestamp'] is none or g.user is none %} show{% endif %}"
+        <div id="collapse{{ loop.index }}"
+            class="collapse{% if challenge['timestamp'] is none or g.user is none %} show{% endif %}"
             aria-labelledby="heading{{ loop.index }}" data-parent="#accordionExample">
             <div class="card-body">
                 <pre class="px-3 mt-2 mb-4">{{ challenge['body'] }}</pre>
