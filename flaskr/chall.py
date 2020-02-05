@@ -12,6 +12,7 @@ bp = Blueprint('challenge', __name__, url_prefix='/challenge')
 
 
 @bp.route('/', methods=('GET',))
+@login_required
 def index():
     db = get_db()
     if g.user:

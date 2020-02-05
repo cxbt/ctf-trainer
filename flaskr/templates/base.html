@@ -1,8 +1,8 @@
 {% set navbar = [
-    ('/', 'index', 'Home'),
-    ('/challenge', 'challenge', 'Challenge'),
-    ('/scoreboard', 'scoreboard', 'Scoreboard'),
-    ('#', 'wiki', 'Wiki')
+    ('/', false, 'index', 'Home'),
+    ('/challenge', true, 'challenge', 'Challenge'),
+    ('/scoreboard', false, 'scoreboard', 'Scoreboard'),
+    ('#', false, 'wiki', 'Wiki')
 ] -%}
 
 {% set active_page = active_page|default('index') %}
@@ -41,7 +41,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-                {% for href, id, caption in navbar %}
+                {% for href, login_required, id, caption in navbar %}
+                {% if login_required == false or g.user %}
                 {% if id == active_page %}
                 <li class="nav-item active">
                 {% else %}
@@ -49,6 +50,7 @@
                 {% endif %}
                     <a class="nav-link" href="{{ href }}">{{ caption }}</a>
                 </li>
+                {% endif %}
                 {% endfor %}
             </ul>
             <hr class="d-sm-flex d-md-flex d-lg-none">
