@@ -8,22 +8,42 @@
 <form method="POST">
     <div class="form-group">
         <label for="InputTitle">Title</label>
-        <input type="text" class="form-control" id="InputTitle" name="title" value="{{ request.form['title'] }}'" required>
+        <input type="text" class="form-control" id="InputTitle" name="title" value="{{ request.form['title'] }}"
+            required>
     </div>
     <div class="form-group">
         <label for="InputBody">Body</label>
         <textarea class="form-control" id="InputBody" name="body" rows="10">{{ request.form['body'] }}</textarea>
     </div>
+    <div class="form-group">
+        <label for="InputAttach">Attachment</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="InputAttach" name="attachment">
+            <label class="custom-file-label" for="InputAttach">Choose File...</label>
+        </div>
+    </div>
     <div class="form-group row">
         <div class="col">
-            <input type="text" class="form-control" id="InputFlag" name="flag" value="{{ request.form['flag'] }}" placeholder="Enter flag here" aria-describedby="helpFlag" required>
-            <small id="helpFlag" class="form-text text-muted">Please write your flag somewhere else,  we store it in hash.</small>
+            <input type="text" class="form-control" id="InputFlag" name="flag" value="{{ request.form['flag'] }}"
+                placeholder="Enter flag here" aria-describedby="helpFlag" required>
+            <small id="helpFlag" class="form-text text-muted">Please write your flag somewhere else, we store it in
+                hash.</small>
         </div>
         <div class="col">
-            <input type="text" class="form-control" id="InputScore" name="score" value="{{ request.form['score'] }}" placeholder="Enter score here" aria-describedby="helpScore" required>
+            <input type="text" class="form-control" id="InputScore" name="score" value="{{ request.form['score'] }}"
+                placeholder="Enter score here" aria-describedby="helpScore" required>
             <small id="helpScore" class="form-text text-muted">Score should be numeric.</small>
         </div>
     </div>
     <button type="submit" class="btn btn-primary w-100">Create Challenge!</button>
 </form>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
 {% endblock %}

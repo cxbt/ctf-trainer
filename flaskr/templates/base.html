@@ -22,7 +22,7 @@
     <!-- Custom CSS -->
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    
+
     <!-- Custom JavaScript -->
     <script src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
 
@@ -32,7 +32,8 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="{{ url_for('index') }}">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" width="30" height="30"
+                class="d-inline-block align-top" alt="">
             TRAINER
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
@@ -45,9 +46,9 @@
                 {% if login_required == false or g.user %}
                 {% if id == active_page %}
                 <li class="nav-item active">
-                {% else %}
+                    {% else %}
                 <li class="nav-item">
-                {% endif %}
+                    {% endif %}
                     <a class="nav-link" href="{{ href }}">{{ caption }}</a>
                 </li>
                 {% endif %}
@@ -96,6 +97,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+    {% block script %}{% endblock %}
 </body>
 
 </html>
