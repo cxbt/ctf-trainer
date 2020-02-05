@@ -143,3 +143,45 @@ def delete_challenge(id):
     db.commit()
     flash('Successfully deleted!')
     return redirect(url_for('admin.list_challenge'))
+
+
+@bp.route('/member')
+@admin_required
+def list_member():
+    db = get_db()
+    members = db.execute(
+        'SELECT id, isAdmin, username, email, score'
+        ' FROM user'
+        ' ORDER BY id ASC'
+    ).fetchall()
+
+    return render_template('admin/member-list.html', members=members)
+
+
+@bp.route('/member/delete/<int:id>')
+@admin_required
+def delete_member(id):
+    db = get_db()
+    member = db.execute(
+        'SELECT id, isAdmin, username, email, score'
+        ' FROM user'
+        ' WHERE id = ?',
+        (id, )
+    ).fetchone()
+    error = None
+
+    if not member:
+        error = f'There is no member id {id}.'
+
+    if error is not None:
+        flash(error)
+
+    db.execute(
+        'DELETE'
+        ' FROM user'
+        ' WHERE id = ?',
+        (id,)
+    )
+    db.commit()
+    flash(f'Successfully removed user {id}!')
+    return redirect(url_for('admin.list_member'))
