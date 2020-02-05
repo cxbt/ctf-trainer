@@ -11,7 +11,7 @@ from flaskr.db import get_db
 bp = Blueprint('challenge', __name__, url_prefix='/challenge')
 
 
-@bp.route('/')
+@bp.route('/', methods=('GET',))
 def index():
     db = get_db()
     if g.user:
