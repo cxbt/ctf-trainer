@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block content %}
+<div class="my-2 float-right">
+    <a href="{{ url_for('admin.create_challenge') }}" class="btn btn-success">
+        Add Challenge
+    </a>
+</div>
 <table class="table table-sm table-hover">
     <thead>
         <tr>
