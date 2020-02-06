@@ -17,7 +17,7 @@ def index():
     db = get_db()
     if g.user:
         challenges = db.execute(
-            'SELECT c.id, c.title, c.body, c.thumbsup, c.score, r.timestamp'
+            'SELECT c.id, c.title, c.body, c.attachment , c.thumbsup, c.score, r.timestamp'
             ' FROM challenge AS c'
             ' LEFT JOIN records AS r ON (c.id = r.challengeid)'
             ' AND (r.userid = ?)'
