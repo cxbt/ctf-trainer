@@ -23,8 +23,9 @@
                 </button>
             </h5>
             <h5 class="mb-0 d-inline">
-                <button class="btn btn-primary" type="button" onclick="like()">
-                    ❤ {{ challenge['thumbsup'] }}
+                <button class="btn btn-primary align-middle" type="button" onclick="like()">
+                    <i class="material-icons align-middle">thumb_up</i>
+                    <span class="align-middle mx-1">{{ challenge['thumbsup'] }}</span>
                 </button>
             </h5>
         </div>
@@ -33,6 +34,12 @@
             aria-labelledby="heading{{ loop.index }}" data-parent="#accordionExample">
             <div class="card-body">
                 <pre class="px-3 mt-2 mb-4">{{ challenge['body'] }}</pre>
+                {% if challenge['attachment'] %}
+                <div class="px-3">
+                    <i class="material-icons align-middle">save</i>
+                    <a href="{{ url_for('challenge.download', filekey=challenge['attachment']) }}" class="align-middle" style="color:blueviolet">{{ challenge['attachment'] }}</a>
+                </div>
+                {% endif %}
                 <hr>
                 <form method="POST" class="form-inline"
                     action="{{ url_for('challenge.authenticate', id=challenge['id']) }}">
@@ -45,22 +52,13 @@
                     <div class="form-group col-lg-2 mb-2">
                         <button type="submit" class="btn btn-primary w-100" disabled>Submit</button>
                     </div>
-                    {% elif g.user %}
+                    {% else %}
                     <div class="form-group col-lg-10 mb-2">
                         <input type="hidden" name="challno" value="{{ challenge.id }}">
                         <input type="text" class="form-control w-100" placeholder="LOWTE{...}" name="flag">
                     </div>
                     <div class="form-group col-lg-2 mb-2">
                         <button type="submit" class="btn btn-primary w-100">Submit</button>
-                    </div>
-                    {% else %}
-                    <div class="form-group col-lg-10 mb-2">
-                        <input type="hidden" name="challno" value="{{ challenge.id }}">
-                        <input type="text" class="form-control w-100" placeholder="Login to play :P" name="flag"
-                            disabled>
-                    </div>
-                    <div class="form-group col-lg-2 mb-2">
-                        <button type="submit" class="btn btn-primary w-100" disabled>Submit</button>
                     </div>
                     {% endif %}
                 </form>
