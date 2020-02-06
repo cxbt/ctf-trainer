@@ -13,6 +13,7 @@ CREATE TABLE challenge (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT NOT NULL,
   body TEXT NOT NULL,
+  attachment TEXT NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   thumbsup INTEGER NOT NULL,
   flag TEXT NOT NULL,
@@ -63,24 +64,26 @@ VALUES
     'meme@meme.com',
     0
   );
-INSERT INTO challenge (title, body, thumbsup, flag, score)
+INSERT INTO challenge (title, body, attachment, thumbsup, flag, score)
 VALUES
   (
     'Mic Check',
     'Long time no see little fella, are you ready for a new round? 
     
 LOWTE{m1c_ch3cK}',
+    'hello_world.txt',
     0,
     'pbkdf2:sha256:150000$G8CzwElb$c959685cbbce97301933cb7fca20778aa43a01aef502eecf1c2476eb2d76b8af',
     1
   );
-INSERT INTO challenge (title, body, thumbsup, flag, score)
+INSERT INTO challenge (title, body, attachment, thumbsup, flag, score)
 VALUES
   (
     'In code',
     'How many encoding method do you know? Can you decode below text?
 
 9M\_h7=0;6F^JW8DKK5t0kYWLAR@-62d^cB1itT^0lC>c0LR^F',
+    '',
     0,
     'pbkdf2:sha256:150000$iJTAPf0N$895bc99c33986aa4629eefd477e9f9f8e63d8ef62841224973441e549003a1e5',
     10
