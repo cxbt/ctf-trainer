@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="POST">
+<form method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="InputTitle">Title</label>
         <input type="text" class="form-control" id="InputTitle" name="title" value="{{ request.form['title'] }}"

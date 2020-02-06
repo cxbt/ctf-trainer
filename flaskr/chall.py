@@ -1,6 +1,9 @@
+import os
+
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, send_from_directory, url_for
 )
+from flask import current_app as app
 from werkzeug.exceptions import abort
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -72,3 +75,27 @@ def authenticate(id):
     db.commit()
     flash(f'Whohoo, Correct!')
     return redirect(url_for('challenge.index'))
+
+
+@bp.route('/download', methods=('GET',))
+@login_required
+def download():
+    filename = request.args['filename']
+    error = None
+
+    if not filename:
+        error = 'You have to give a filename!'
+
+    if filename not in os.listdir(os.path.join(app.config['UPLOAD_FOLDER'])):
+        error = f'There is no file name {filename}'
+
+    if error is not None:
+        flash(error)
+        return redirect(url_for('challenge.index'))
+
+    print(os.path.join(app.root_path, app.config['UPLOAD_FOLDER']))
+
+    return send_from_directory(
+        directory=os.path.join(app.root_path, app.config['UPLOAD_FOLDER']),
+        filename=filename,
+        as_attachment=True)

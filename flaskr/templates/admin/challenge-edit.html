@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="POST">
+<form method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="InputTitle">Title</label>
         <input type="text" class="form-control" id="InputTitle" name="title"
@@ -17,6 +17,17 @@
         <label for="InputBody">Body</label>
         <textarea class="form-control" id="InputBody" name="body"
             rows="10">{{ request.form['body'] or challenge['body'] }}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="InputAttach">Attachment</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="InputAttach" name="attachment">
+            {% if challenge['attachment'] %}
+            <label class="custom-file-label" for="InputAttach">{{ challenge['attachment'] }}</label>
+            {% else %}
+            <label class="custom-file-label" for="InputAttach">Choose File...</label>
+            {% endif %}
+        </div>
     </div>
     <div class="form-group row">
         <div class="col">
@@ -32,4 +43,13 @@
     </div>
     <button type="submit" class="btn btn-primary w-100">Edit Challenge</button>
 </form>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
 {% endblock %}

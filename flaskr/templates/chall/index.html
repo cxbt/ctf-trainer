@@ -37,7 +37,7 @@
                 {% if challenge['attachment'] %}
                 <div class="px-3">
                     <i class="material-icons align-middle">save</i>
-                    <a href="#" class="align-middle" style="color:blueviolet">{{ challenge['attachment'] }}</a>
+                    <a href="{{ url_for('challenge.download', filename=challenge['attachment']) }}" class="align-middle" style="color:blueviolet">{{ challenge['attachment'] }}</a>
                 </div>
                 {% endif %}
                 <hr>
