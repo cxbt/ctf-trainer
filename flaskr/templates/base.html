@@ -83,11 +83,15 @@
         </div>
     </nav>
     <div class="container">
-        <h1 class="mt-4 mb-4">{% block header %}{% endblock %}</h1>
+        <h1 class="mt-4 mb-4">{% block title %}{% endblock %}</h1>
         {% for message in get_flashed_messages() %}
         <div class="alert alert-primary" role="alert">{{ message }}</div>
         {% endfor %}
         {% block content %}{% endblock %}
+        <div class="footer bg-dark mt-5">
+            <div class="text-center py-3" style="color:white">© 2020 Copyright: lowte
+            </div>
+        </div>
     </div>
 
     <!-- Optional JavaScript -->
