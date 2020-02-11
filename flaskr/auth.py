@@ -9,6 +9,45 @@ from flaskr.db import get_db
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 
+@bp.before_app_request
+def load_logged_in_user():
+    user_id = session.get('user_id')
+
+    if user_id is None:
+        g.user = None
+    else:
+        g.user = get_db().execute(
+            'SELECT * FROM user WHERE id = ?', (user_id,)
+        ).fetchone()
+
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            flash('You need to login.')
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
+
+
+def admin_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is not None:
+            if g.user['isAdmin'] == True:
+                return view(**kwargs)
+            else:
+                flash('You are not authorized to access this page.')
+                return redirect(url_for('challenge.index'))
+        else:
+            flash('You need to login.')
+            return redirect(url_for('auth.login'))
+    return wrapped_view
+
+
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
@@ -74,40 +113,24 @@ def logout():
     return redirect(url_for('index'))
 
 
-@bp.before_app_request
-def load_logged_in_user():
-    user_id = session.get('user_id')
+@bp.route('/profile')
+@login_required
+def profile():
+    db = get_db()
+    user = db.execute(
+        'SELECT username, password, email, score'
+        ' FROM user'
+        ' WHERE id=?',
+        (g.user['id'],)
+    ).fetchone()
+    error = None
+    records = db.execute(
+        'SELECT r.timestamp, c.title, c.score'
+        ' FROM records AS r'
+        ' INNER JOIN challenge AS c ON r.challengeid = c.id'
+        ' WHERE r.userid = ?'
+        ' ORDER BY r.timestamp ASC',
+        (g.user['id'],)
+    ).fetchall()
 
-    if user_id is None:
-        g.user = None
-    else:
-        g.user = get_db().execute(
-            'SELECT * FROM user WHERE id = ?', (user_id,)
-        ).fetchone()
-
-
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            flash('You need to login.')
-            return redirect(url_for('auth.login'))
-
-        return view(**kwargs)
-
-    return wrapped_view
-
-
-def admin_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is not None:
-            if g.user['isAdmin'] == True:
-                return view(**kwargs)
-            else:
-                flash('You are not authorized to access this page.')
-                return redirect(url_for('challenge.index'))
-        else:
-            flash('You need to login.')
-            return redirect(url_for('auth.login'))
-    return wrapped_view
+    return render_template('auth/profile.html', user=user, records=records)

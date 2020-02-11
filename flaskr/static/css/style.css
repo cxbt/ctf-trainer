@@ -1,3 +1,18 @@
+html, body {
+    height: 100%;
+}
+
+.fill {
+    min-height: 80%;
+}
+
+.example {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    background-color: rgba(86,61,124,.15);
+    border: 1px solid rgba(86,61,124,.2);
+}
+
 .solved {
     background-color: rgba(0, 255, 85, 0.2);
 }
